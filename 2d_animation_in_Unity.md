@@ -6,4 +6,4 @@
   
   Examples of movements frames
   
-  ![idle-original](https://user-images.githubusercontent.com/70448242/185625037-d4675655-5637-4730-a178-9d993c961e69.png)
+  ![idle-original](https://user-images.githubusercontent.com/70448242/185625307-056b89ad-a925-409a-b4dd-2e0ffd470929.png)
