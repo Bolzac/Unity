@@ -1,2 +1,0 @@
-rigidbody üzerinde movePosition fonksiyonu kullanıldı, bu fonksiyona parametre olarak kullanıcının şuan bulunduğu pozisyon ile yer değiştirme miktarı vector2 biçiminde eklendi.
-getaxis metodu ile kullanıcının dik ve yatay biçimdeki hareketleri algılanıyor.
