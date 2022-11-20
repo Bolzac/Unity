@@ -4,15 +4,14 @@ using UnityEngine;
 public class Enemy_Destroy : MonoBehaviour
 {
     [SerializeField] GameObject _particle;
-    private int _destroyCount = 0;
-    private int _undestroyCount = 0;
+    private Spawner _spawner;
     private void OnCollisionEnter2D(Collision2D col)
     {
         if (col.gameObject.CompareTag("Projectile_P"))
         {
             Instantiate(_particle, transform.position, Quaternion.identity);
             Destroy(gameObject);
-            _destroyCount++;
+            _spawner.destroyCount++;
         }
     }
     private void OnTriggerEnter2D(Collider2D col)
@@ -20,15 +19,20 @@ public class Enemy_Destroy : MonoBehaviour
         if (col.CompareTag("Border"))
         {
             Destroy(gameObject);
-            _undestroyCount++;
+            _spawner.undestroyCount++;
         }
+    }
+
+    private void Awake()
+    {
+        _spawner = FindObjectOfType<Spawner>();
     }
 
     private void Update()
     {
-        if (_destroyCount + _undestroyCount == GameManager.EnemyCount)
+        if (_spawner.destroyCount + _spawner.undestroyCount == GameManager.EnemyCount)
         {
-            GameManager.EnemyCount = _undestroyCount;
+            GameManager.EnemyCount = _spawner.undestroyCount;
         }
     }
 }

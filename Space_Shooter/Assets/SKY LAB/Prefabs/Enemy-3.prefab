@@ -476,7 +476,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Speed: 1
-  ParabolaRoot: {fileID: 2334824363564883287, guid: b5d58869351bf234385b9cdc63df241e,
+  ParabolaRoot: {fileID: 7925810349789612657, guid: 0335fd90c7f44d84f9b071e2294359bb,
     type: 3}
   Autostart: 1
   Animation: 1

@@ -1,10 +1,13 @@
 using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
     public int score = 0;
+    public TextMeshProUGUI _scoreText;
     private int _health = 3;
     public int Health
     {
@@ -20,6 +23,8 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+
+    public Slider _healthSlider;
     private int _wave = 1;
 
     public int Wave
@@ -36,6 +41,7 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+    public TextMeshProUGUI _waveText;
     private static int _enemyCount = 5;
     public static int EnemyCount
     {
@@ -55,6 +61,14 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+
+    private GameManager _gameManager;
+
+    private void Awake()
+    {
+        _gameManager = GetComponent<GameManager>();
+    }
+
     private void Start()
     {
         //Open menu on the start of game
@@ -74,8 +88,15 @@ public class GameManager : MonoBehaviour
             Invoke(nameof(NextWave),2); //If all enemies are destroyed, then go to next wave after 2 seconds
             EnemyCount = 5;// Reset enemy number
         }
+        SetUI();
     }
 
+    private void SetUI()
+    {
+        _waveText.SetText(Wave.ToString());
+        _scoreText.SetText(score.ToString());
+        _healthSlider.value = Health;
+    }
     private void NewGame()
     {
         //Starts to gameplay
@@ -93,6 +114,8 @@ public class GameManager : MonoBehaviour
 
     private void LoseGame()
     {
+        Destroy(gameObject);
+        Destroy(_gameManager);
         SceneManager.LoadScene(3);
     }
 }
