@@ -8,6 +8,11 @@ public class MainMenu : MonoBehaviour
         SceneManager.LoadScene("Preload");
     }
 
+    public void RestartGame()
+    {
+        FindObjectOfType<GameManager>().NewGame();
+        Time.timeScale = 1;
+    }
     public void QuitGame()
     {
         Application.Quit();

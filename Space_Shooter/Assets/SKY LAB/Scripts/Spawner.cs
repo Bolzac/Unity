@@ -1,23 +1,22 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
-    [SerializeField] private float rate = 1;
-    [SerializeField] private GameObject enemy;
+    [SerializeField] private float rate = 0.5f;
+    [SerializeField] private float rateOfWaves = 1;
+    [SerializeField] private GameObject[] enemies;
     private int _count = 0;
     public int destroyCount = 0;
-    public int dc = 0;
     public int undestroyCount = 0;
     private GameManager _gameManager;
-    private void Spawn_Enemy()
+    public void Spawn_Enemy()
     {
         _count++;
-        Instantiate(enemy, enemy.transform.position, quaternion.identity);
-        if (_count < GameManager.EnemyCount)
+        Debug.Log(_count);
+        Debug.Log(_gameManager.EnemyCount);
+        Instantiate(enemies[_gameManager.Wave-1], enemies[_gameManager.Wave-1].transform.position, quaternion.identity);
+        if (_count < _gameManager.EnemyCount)
         {
             Invoke(nameof(Spawn_Enemy),rate);
         }
@@ -32,19 +31,21 @@ public class Spawner : MonoBehaviour
     {
         Spawn_Enemy();
     }
-
     private void Update()
     {
-        if (GameManager.EnemyCount <= _count && GameManager.EnemyCount != 0 && destroyCount + undestroyCount == GameManager.EnemyCount)
+        if (_gameManager.EnemyCount != 0 && destroyCount + undestroyCount == _gameManager.EnemyCount && destroyCount != _gameManager.EnemyCount)
         {
-            GameManager.EnemyCount = undestroyCount;
+            Debug.Log("spawn");
+            _gameManager.EnemyCount = undestroyCount;
+            Spawn_Enemy();
+        }else if (destroyCount == _gameManager.EnemyCount)
+        {
             _count = 0;
             destroyCount = 0;
             undestroyCount = 0;
-            Spawn_Enemy();
-        }else if (GameManager.EnemyCount == 0)
-        { 
+            _gameManager.EnemyCount = 10;
             _gameManager.NextWave();
+            Invoke(nameof(Spawn_Enemy),rateOfWaves);
         }
     }
 }

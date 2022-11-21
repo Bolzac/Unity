@@ -583,7 +583,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rate: 2
-  enemy: {fileID: 1913323566250298676, guid: fc60bfe47156d12448368c8701b2d3d0, type: 3}
+  enemy_1: {fileID: 0}
+  enemy_2: {fileID: 0}
+  enemy_3: {fileID: 0}
+  enemies:
+  - {fileID: 1913323566250298676, guid: fc60bfe47156d12448368c8701b2d3d0, type: 3}
+  - {fileID: 969909752295747402, guid: c7dcf9220d4c6d947923d44df370be2d, type: 3}
+  - {fileID: 2194596419896892818, guid: 0427c3f6b171eb84aabaeb88aefbd289, type: 3}
+  destroyCount: 0
+  dc: 0
+  undestroyCount: 0
 --- !u!4 &1466731520
 Transform:
   m_ObjectHideFlags: 0

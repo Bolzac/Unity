@@ -12,6 +12,7 @@ public class Player_Destroy : MonoBehaviour
             {
                 Instantiate(_particle, transform.position, Quaternion.identity);
                 //_audioSource.PlayOneShot(_audioSource.clip);
+                FindObjectOfType<GameManager>().LoseGame();
                 Destroy(gameObject);   
             }
             FindObjectOfType<GameManager>().Health = _health;

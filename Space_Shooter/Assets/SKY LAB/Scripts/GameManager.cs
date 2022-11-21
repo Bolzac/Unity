@@ -42,8 +42,8 @@ public class GameManager : MonoBehaviour
         }
     }
     public TextMeshProUGUI _waveText;
-    private static int _enemyCount = 5;
-    public static int EnemyCount
+    private int _enemyCount = 5;
+    public int EnemyCount
     {
         get
         {
@@ -63,10 +63,14 @@ public class GameManager : MonoBehaviour
     }
 
     private GameManager _gameManager;
+    private Spawner _spawner;
+    public GameObject LosePanel;
+    public GameObject InGamePanel;
 
     private void Awake()
     {
         _gameManager = GetComponent<GameManager>();
+        _spawner = FindObjectOfType<Spawner>();
     }
 
     private void Start()
@@ -77,11 +81,6 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        //Check for Player's health
-        if (Health <= 0)
-        {
-            LoseGame();
-        }
         //Check for Wave's enemy number
         if (EnemyCount <= 0)
         {
@@ -97,25 +96,27 @@ public class GameManager : MonoBehaviour
         _scoreText.SetText(score.ToString());
         _healthSlider.value = Health;
     }
-    private void NewGame()
+    public void NewGame()
     {
         //Starts to gameplay
         Health = 3;
         Wave = 1;
+        score = 0;
+        InGamePanel.SetActive(true);
+        LosePanel.SetActive(false);
         DontDestroyOnLoad(gameObject);
         SceneManager.LoadScene(2);
     }
 
     public void NextWave()
     {
-        var wave = Wave;
-        Wave = wave + 1;
+        Wave++;
     }
 
-    private void LoseGame()
+    public void LoseGame()
     {
-        Destroy(gameObject);
-        Destroy(_gameManager);
-        SceneManager.LoadScene(3);
+        LosePanel.SetActive(true);
+        InGamePanel.SetActive(false);
+        Time.timeScale = 0;
     }
 }
