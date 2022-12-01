@@ -23,6 +23,7 @@ public class Player : MonoBehaviour
     protected bool IsVisible = true;
     protected bool CanHide = false;
     protected static bool CanInteract = false;
+    public bool isSeen = false;
     private void Update()
     {
         DetectInput();

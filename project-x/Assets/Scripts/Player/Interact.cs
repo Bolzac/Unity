@@ -9,12 +9,10 @@ public class Interact : Player
     {
         if (!col.CompareTag("Alarm")) return;
         CanInteract = true;
-        Debug.Log(CanInteract);
     }
     private void OnTriggerExit2D(Collider2D other)
     {
         if (!other.CompareTag("Alarm")) return;
         CanInteract = false;
-        Debug.Log(CanInteract);
     }
 }

@@ -8,6 +8,7 @@ TagManager:
   - Alarm
   - Voice
   - Enemy
+  - Vision
   layers:
   - Default
   - TransparentFX
