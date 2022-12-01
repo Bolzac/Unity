@@ -25,7 +25,6 @@ public class EnemyMovement : Enemy
             _reachPos = _initialPosOfEnemy;
             Action<string, float> invoke = Invoke;
             invoke(nameof(BackToPosition),5);
-            _isGoingBack = true;
         }
     }
 
@@ -38,6 +37,15 @@ public class EnemyMovement : Enemy
         else
         {
             _isWorkingOnAlarm = false;
+        }
+
+        if (transform.position.x <= _reachPos.x && _isGoingBack)
+        {
+            _isGoingBack = false;
+            transform.position = _initialPosOfEnemy;
+            IsMovingLeft = true;
+            IsMovingRight = true;
+            direction = 0;
         }
     }
 
@@ -62,11 +70,13 @@ public class EnemyMovement : Enemy
         var fixedSpeed = Speed * Time.fixedDeltaTime;
         if (_reachPos.x > transform.position.x && IsMovingRight)
         {
+            direction = 1;
             IsMovingLeft = false;
             Rigidbody2D.MovePosition((Vector2)transform.position + Vector2.right * fixedSpeed);
         }
         else if (_reachPos.x < transform.position.x && IsMovingLeft)
         {
+            direction = -1;
             IsMovingRight = false;
             Rigidbody2D.MovePosition((Vector2)transform.position + Vector2.left * fixedSpeed);
         }
@@ -74,6 +84,7 @@ public class EnemyMovement : Enemy
 
     private void BackToPosition()
     {
+        _isGoingBack = true;
         IsVoiceNoticed = false;
         _isWorkingOnAlarm = false;
         IsMovingRight = true;
