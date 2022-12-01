@@ -1,0 +1,59 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - Hide
+  - Alarm
+  - Voice
+  - Enemy
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - Ray
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: Behind_Items
+    uniqueID: 2889519253
+    locked: 0
+  - name: Front_Player
+    uniqueID: 3341151329
+    locked: 0
+  - name: Front_Player_Wearable
+    uniqueID: 3993061299
+    locked: 0
+  - name: Front_Items
+    uniqueID: 1716742637
+    locked: 0
