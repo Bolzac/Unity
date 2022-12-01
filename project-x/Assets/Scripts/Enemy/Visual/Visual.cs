@@ -73,13 +73,23 @@ public class Visual: MonoBehaviour
                 _enemyReactions.SetExclamation(true,_enemy.ExclamationMark);
             }else if (!IsSeen && _slider && _slider.transform.localScale.x > 0 && _slider.transform.localScale.x < 1)
             {
-                _slider.transform.localScale -= new Vector3(0.005f, 0);
-                if (_slider.transform.localScale.x == 0 || _slider.transform.localScale.x <= 0.1f )
-                {
-                    _enemyReactions.SetExclamation(false,_enemy.ExclamationMark);
-                    _enemyReactions.SetQuestion(true,_enemy.QuestMark);
-                }
-            }   
+                SetSliderLow();
+            }
+        }else if (!Player.IsVisible && !IsSeen && _slider.transform.localScale.x > 0 && _slider.transform.localScale.x < 1)
+        {
+            _enemyReactions.SetExclamation(false,_enemy.ExclamationMark);
+            _enemyReactions.SetQuestion(true,_enemy.QuestMark);
+            SetSliderLow();
+        }
+    }
+
+    private void SetSliderLow()
+    {
+        _slider.transform.localScale -= new Vector3(0.005f, 0);
+        if (_slider.transform.localScale.x == 0 || _slider.transform.localScale.x <= 0.1f )
+        {
+            _enemyReactions.SetExclamation(false,_enemy.ExclamationMark);
+            _enemyReactions.SetQuestion(true,_enemy.QuestMark);
         }
     }
 }

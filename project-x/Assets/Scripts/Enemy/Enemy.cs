@@ -7,10 +7,10 @@ using UnityEngine.Serialization;
 public class Enemy : MonoBehaviour
 {
     public bool IsVoiceNoticed { get; set; }
-    protected bool IsEnemyOnAlarm { get; set; }
+    protected bool IsEnemyOnSource { get; set; }
     protected float Speed { get; }  = 1f;
     protected Rigidbody2D Rigidbody2D;
-    [HideInInspector] public Vector2 positionOfAlarm;
+    [HideInInspector] public Vector2 positionOfSound;
     protected bool IsMovingRight =true;
     protected bool IsMovingLeft = true;
     public int direction { get; set; }
@@ -19,7 +19,7 @@ public class Enemy : MonoBehaviour
     public GameObject ExclamationMark;
     private void Awake()
     {
-        IsEnemyOnAlarm = false;
+        IsEnemyOnSource = false;
         Rigidbody2D = GetComponent<Rigidbody2D>();
         _enemyReactions = new EnemyReactions();
         QuestMark = gameObject.transform.Find("Yellow").gameObject;

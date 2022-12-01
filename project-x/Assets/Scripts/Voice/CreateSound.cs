@@ -1,29 +1,19 @@
 using System;
 using UnityEngine;
 
-public class CreateSound : Sound
+public class CreateSound
 {
-    private RaycastHit2D[] hits;
+    private readonly RaycastHit2D[] hits = new RaycastHit2D[5];
+    private EnemyReactions _enemyReactions = new EnemyReactions();
+    private EnemyMovement _enemyMovement;
 
-    private void Awake()
-    {
-        hits = new RaycastHit2D[10];
-        _enemyReactions = new EnemyReactions();
-    }
-
-    private void Update()
-    {
-        if (CanInteract && Input.GetKeyDown(KeyCode.E))
-        {
-            Create();
-        }
-    }
     // ReSharper disable Unity.PerformanceAnalysis
-    private void Create()
+    public void Create(GameObject _gameObject, float Loudness)
     {
-        var position = transform.position;
-        Debug.DrawRay(position, transform.TransformDirection(Vector2.right) * Loudness, Color.white);
-        var hitCount = Physics2D.RaycastNonAlloc(position, transform.TransformDirection(Vector2.right),hits,Loudness);
+        var x = Loudness;
+        var position = _gameObject.transform.position;
+        Debug.DrawRay(position, _gameObject.transform.TransformDirection(Vector2.right) * Loudness, Color.white);
+        var hitCount = Physics2D.RaycastNonAlloc(position, _gameObject.transform.TransformDirection(Vector2.right),hits,x);
         for (var i = 0; i < hitCount; i++)
         {
             if (hits[i].collider.CompareTag("Enemy"))
@@ -31,12 +21,12 @@ public class CreateSound : Sound
                 var enemy = hits[i].collider.gameObject;
                 _enemyReactions.SetQuestion(true,enemy.transform.Find("Yellow").gameObject);
                 enemy.GetComponent<Enemy>().IsVoiceNoticed = true;
-                enemy.GetComponent<Enemy>().positionOfAlarm = transform.position;
+                enemy.GetComponent<Enemy>().positionOfSound = _gameObject.transform.position;
             }
         }
         //Nasıl aynı anda iki adet raycast çıkartırım?
-        Debug.DrawRay(position, transform.TransformDirection(Vector2.left) * Loudness, Color.white);
-        hitCount = Physics2D.RaycastNonAlloc(position, transform.TransformDirection(Vector2.left),hits,Loudness);
+        Debug.DrawRay(position, _gameObject.transform.TransformDirection(Vector2.left) * Loudness, Color.white);
+        hitCount = Physics2D.RaycastNonAlloc(position, _gameObject.transform.TransformDirection(Vector2.left),hits,x);
         for (var i = 0; i < hitCount; i++)
         {
             if (hits[i].collider.CompareTag("Enemy"))
@@ -44,7 +34,7 @@ public class CreateSound : Sound
                 var enemy = hits[i].collider.gameObject;
                 _enemyReactions.SetQuestion(true,enemy.transform.Find("Yellow").gameObject);
                 enemy.GetComponent<Enemy>().IsVoiceNoticed = true;
-                enemy.GetComponent<Enemy>().positionOfAlarm = transform.position;
+                enemy.GetComponent<Enemy>().positionOfSound = _gameObject.transform.position;
             }
         }
     }

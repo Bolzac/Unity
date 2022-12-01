@@ -48,6 +48,10 @@ public class SetVisibility : Player
             }else if (Input.GetKeyDown(KeyCode.E) && IsVisible)
             {
                 IsVisible = false;
+                if (Visual.IsSeen)
+                {
+                    Visual.IsSeen = false;
+                }
             }
         }
     }

@@ -3,34 +3,35 @@ using UnityEngine;
 
 public class EnemyMovement : Enemy
 {
+    private Vector2 _reachPos;
     private Vector2 _initialPosOfEnemy;
     private bool _isGoingBack;
     private bool _isWorkingOnAlarm;
-    private Vector2 _reachPos;
-
+    private float y;
+    
     private void Start()
     {
+        y = gameObject.transform.position.y;
         _initialPosOfEnemy = Rigidbody2D.gameObject.transform.position;
     }
 
     private void Update()
     {
-        if (IsEnemyOnAlarm)
+        if (IsEnemyOnSource)
         {
             _isWorkingOnAlarm = true;
             direction = 0;
         }
         else
             _isWorkingOnAlarm = false;
-        
-        Debug.Log(Player.IsVisible);
+        ManageMove();
     }
 
     private void FixedUpdate()
     {
-        if (IsVoiceNoticed && !IsEnemyOnAlarm && !_isWorkingOnAlarm && !_isGoingBack)
+        if (IsVoiceNoticed && !IsEnemyOnSource && !_isWorkingOnAlarm && !_isGoingBack)
         {
-            _reachPos = positionOfAlarm;
+            _reachPos = positionOfSound;
             Action<string, float> invoke = Invoke;
             invoke(nameof(Move), 2);
         }
@@ -42,17 +43,6 @@ public class EnemyMovement : Enemy
             Action<string, float> invoke = Invoke;
             invoke(nameof(BackToPosition), 5);
         }
-        ManageMove();
-    }
-
-    private void OnTriggerEnter2D(Collider2D col)
-    {
-        if (col.CompareTag("Alarm")) IsEnemyOnAlarm = true;
-    }
-
-    private void OnTriggerExit2D(Collider2D other)
-    {
-        if (other.CompareTag("Alarm")) IsEnemyOnAlarm = false;
     }
 
     private void Move()
@@ -66,12 +56,19 @@ public class EnemyMovement : Enemy
                 IsMovingLeft = false;
                 Rigidbody2D.MovePosition((Vector2)transform.position + Vector2.right * fixedSpeed);
             }
-            else if (_reachPos.x < transform.position.x && IsMovingLeft && !Visual.IsSeen)
+            else if(!_isGoingBack && _reachPos.x < transform.position.x && !IsMovingLeft)
+            {
+                IsEnemyOnSource = true;
+            }
+            if (_reachPos.x < transform.position.x && IsMovingLeft)
             {
                 direction = -1;
                 IsMovingRight = false;
                 Rigidbody2D.MovePosition((Vector2)transform.position + Vector2.left * fixedSpeed);
-            }   
+            }else if (!_isGoingBack && _reachPos.x > transform.position.x && !IsMovingRight)
+            {
+                IsEnemyOnSource = true;
+            }
         }
     }
 
@@ -87,7 +84,7 @@ public class EnemyMovement : Enemy
 
     private void ManageMove()
     {
-        if (positionOfAlarm.x >= transform.position.x)
+        if (positionOfSound.x >= transform.position.x)
         {
             if (transform.position.x <= _reachPos.x && _isGoingBack)
             {
@@ -97,8 +94,8 @@ public class EnemyMovement : Enemy
                 IsMovingRight = true;
                 direction = 0;
                 _enemyReactions.SetQuestion(false,QuestMark);
-            }   
-        }else if (positionOfAlarm.x <= transform.position.x)
+            }
+        }else if (positionOfSound.x <= transform.position.x)
         {
             if (transform.position.x >= _reachPos.x && _isGoingBack)
             {
