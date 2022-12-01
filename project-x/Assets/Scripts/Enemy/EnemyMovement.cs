@@ -16,7 +16,10 @@ public class EnemyMovement : Enemy
     private void Update()
     {
         if (IsEnemyOnAlarm)
+        {
             _isWorkingOnAlarm = true;
+            direction = 0;
+        }
         else
             _isWorkingOnAlarm = false;
 
@@ -41,6 +44,7 @@ public class EnemyMovement : Enemy
 
         if (_isWorkingOnAlarm)
         {
+            
             _reachPos = _initialPosOfEnemy;
             Action<string, float> invoke = Invoke;
             invoke(nameof(BackToPosition), 5);
@@ -60,13 +64,13 @@ public class EnemyMovement : Enemy
     private void Move()
     {
         var fixedSpeed = Speed * Time.fixedDeltaTime;
-        if (_reachPos.x > transform.position.x && IsMovingRight)
+        if (_reachPos.x > transform.position.x && IsMovingRight && !Visual.IsSeen)
         {
             direction = 1;
             IsMovingLeft = false;
             Rigidbody2D.MovePosition((Vector2)transform.position + Vector2.right * fixedSpeed);
         }
-        else if (_reachPos.x < transform.position.x && IsMovingLeft)
+        else if (_reachPos.x < transform.position.x && IsMovingLeft && !Visual.IsSeen)
         {
             direction = -1;
             IsMovingRight = false;

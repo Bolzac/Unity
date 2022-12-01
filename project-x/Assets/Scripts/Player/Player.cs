@@ -23,7 +23,7 @@ public class Player : MonoBehaviour
     protected bool IsVisible = true;
     protected bool CanHide = false;
     protected static bool CanInteract = false;
-    public bool isSeen = false;
+
     private void Update()
     {
         DetectInput();
@@ -43,6 +43,21 @@ public class Player : MonoBehaviour
         }else if (_direction.x < 0)
         {
             transform.localRotation = new Quaternion(0, 180, 0,0);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D col)
+    {
+        if (col.CompareTag("Vision"))
+        {
+            Visual.IsSeen = true;
+        }
+    }
+    private void OnTriggerExit2D(Collider2D col)
+    {
+        if (col.CompareTag("Vision"))
+        {
+            Visual.IsSeen = false;
         }
     }
 }

@@ -14,6 +14,7 @@ public class Visual: MonoBehaviour
     private int _direction;
     private Collider2D _collider2D;
     private Collider2D[] _collider2Ds;
+    public static bool IsSeen = false;
 
     private void Awake()
     {
@@ -35,6 +36,11 @@ public class Visual: MonoBehaviour
     {
         _direction = _enemy.direction;
         SetVisualActive();
+    }
+
+    private void FixedUpdate()
+    {
+        SeePlayer();
     }
 
     private void SetVisualActive()
@@ -60,11 +66,9 @@ public class Visual: MonoBehaviour
 
     private void SeePlayer()
     {
-        var b = new ContactFilter2D().NoFilter();
-        var a = Physics2D.OverlapCollider(_collider2D, b, _collider2Ds);
-        for (int i = 0; i < 5; i++)
+        if (IsSeen && _slider && _slider.transform.localScale.x <= 1)
         {
-            Debug.Log(_collider2Ds[i]);
+            _slider.transform.localScale += new Vector3(0.005f, 0);
         }
     }
 }
