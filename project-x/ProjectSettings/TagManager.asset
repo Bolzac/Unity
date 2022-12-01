@@ -9,6 +9,7 @@ TagManager:
   - Voice
   - Enemy
   - Vision
+  - noPlayer
   layers:
   - Default
   - TransparentFX

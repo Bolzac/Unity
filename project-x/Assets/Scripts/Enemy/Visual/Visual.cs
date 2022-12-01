@@ -12,9 +12,8 @@ public class Visual: MonoBehaviour
     private GameObject _sliderL;
     private Enemy _enemy;
     private int _direction;
-    private Collider2D _collider2D;
-    private Collider2D[] _collider2Ds;
     public static bool IsSeen = false;
+    protected EnemyReactions _enemyReactions;
 
     private void Awake()
     {
@@ -26,10 +25,9 @@ public class Visual: MonoBehaviour
             _sliderL = _visualL.transform.Find("SliderL").gameObject;
         }
 
-        _collider2D = GetComponent<Collider2D>();
+        _enemyReactions = new EnemyReactions();
         _enemy = GetComponent<Enemy>();
         _direction = _enemy.direction;
-        _collider2Ds = new Collider2D[5];
     }
 
     private void Update()
@@ -66,9 +64,22 @@ public class Visual: MonoBehaviour
 
     private void SeePlayer()
     {
-        if (IsSeen && _slider && _slider.transform.localScale.x <= 1)
+        if (Player.IsVisible)
         {
-            _slider.transform.localScale += new Vector3(0.005f, 0);
+            if (IsSeen && _slider && _slider.transform.localScale.x <= 1)
+            {
+                _slider.transform.localScale += new Vector3(0.005f, 0);
+                _enemyReactions.SetQuestion(false,_enemy.QuestMark);
+                _enemyReactions.SetExclamation(true,_enemy.ExclamationMark);
+            }else if (!IsSeen && _slider && _slider.transform.localScale.x > 0 && _slider.transform.localScale.x < 1)
+            {
+                _slider.transform.localScale -= new Vector3(0.005f, 0);
+                if (_slider.transform.localScale.x == 0 || _slider.transform.localScale.x <= 0.1f )
+                {
+                    _enemyReactions.SetExclamation(false,_enemy.ExclamationMark);
+                    _enemyReactions.SetQuestion(true,_enemy.QuestMark);
+                }
+            }   
         }
     }
 }

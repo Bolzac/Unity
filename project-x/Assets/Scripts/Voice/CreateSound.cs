@@ -8,6 +8,7 @@ public class CreateSound : Sound
     private void Awake()
     {
         hits = new RaycastHit2D[10];
+        _enemyReactions = new EnemyReactions();
     }
 
     private void Update()
@@ -28,7 +29,7 @@ public class CreateSound : Sound
             if (hits[i].collider.CompareTag("Enemy"))
             {
                 var enemy = hits[i].collider.gameObject;
-                enemy.transform.Find("Yellow").gameObject.SetActive(true);
+                _enemyReactions.SetQuestion(true,enemy.transform.Find("Yellow").gameObject);
                 enemy.GetComponent<Enemy>().IsVoiceNoticed = true;
                 enemy.GetComponent<Enemy>().positionOfAlarm = transform.position;
             }
@@ -41,7 +42,7 @@ public class CreateSound : Sound
             if (hits[i].collider.CompareTag("Enemy"))
             {
                 var enemy = hits[i].collider.gameObject;
-                enemy.transform.Find("Yellow").gameObject.SetActive(true);
+                _enemyReactions.SetQuestion(true,enemy.transform.Find("Yellow").gameObject);
                 enemy.GetComponent<Enemy>().IsVoiceNoticed = true;
                 enemy.GetComponent<Enemy>().positionOfAlarm = transform.position;
             }

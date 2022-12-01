@@ -7,4 +7,5 @@ public class Sound : Player
 {
     private float _loudness = 4f;
     protected float Loudness => _loudness; //r
+    protected EnemyReactions _enemyReactions;
 }

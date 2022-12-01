@@ -22,15 +22,8 @@ public class EnemyMovement : Enemy
         }
         else
             _isWorkingOnAlarm = false;
-
-        if (transform.position.x <= _reachPos.x && _isGoingBack)
-        {
-            _isGoingBack = false;
-            transform.position = _initialPosOfEnemy;
-            IsMovingLeft = true;
-            IsMovingRight = true;
-            direction = 0;
-        }
+        
+        Debug.Log(Player.IsVisible);
     }
 
     private void FixedUpdate()
@@ -49,6 +42,7 @@ public class EnemyMovement : Enemy
             Action<string, float> invoke = Invoke;
             invoke(nameof(BackToPosition), 5);
         }
+        ManageMove();
     }
 
     private void OnTriggerEnter2D(Collider2D col)
@@ -64,17 +58,20 @@ public class EnemyMovement : Enemy
     private void Move()
     {
         var fixedSpeed = Speed * Time.fixedDeltaTime;
-        if (_reachPos.x > transform.position.x && IsMovingRight && !Visual.IsSeen)
+        if (!Visual.IsSeen)
         {
-            direction = 1;
-            IsMovingLeft = false;
-            Rigidbody2D.MovePosition((Vector2)transform.position + Vector2.right * fixedSpeed);
-        }
-        else if (_reachPos.x < transform.position.x && IsMovingLeft && !Visual.IsSeen)
-        {
-            direction = -1;
-            IsMovingRight = false;
-            Rigidbody2D.MovePosition((Vector2)transform.position + Vector2.left * fixedSpeed);
+            if (_reachPos.x > transform.position.x && IsMovingRight)
+            {
+                direction = 1;
+                IsMovingLeft = false;
+                Rigidbody2D.MovePosition((Vector2)transform.position + Vector2.right * fixedSpeed);
+            }
+            else if (_reachPos.x < transform.position.x && IsMovingLeft && !Visual.IsSeen)
+            {
+                direction = -1;
+                IsMovingRight = false;
+                Rigidbody2D.MovePosition((Vector2)transform.position + Vector2.left * fixedSpeed);
+            }   
         }
     }
 
@@ -86,5 +83,32 @@ public class EnemyMovement : Enemy
         IsMovingRight = true;
         IsMovingLeft = true;
         Move();
+    }
+
+    private void ManageMove()
+    {
+        if (positionOfAlarm.x >= transform.position.x)
+        {
+            if (transform.position.x <= _reachPos.x && _isGoingBack)
+            {
+                _isGoingBack = false;
+                transform.position = _initialPosOfEnemy;
+                IsMovingLeft = true;
+                IsMovingRight = true;
+                direction = 0;
+                _enemyReactions.SetQuestion(false,QuestMark);
+            }   
+        }else if (positionOfAlarm.x <= transform.position.x)
+        {
+            if (transform.position.x >= _reachPos.x && _isGoingBack)
+            {
+                _isGoingBack = false;
+                transform.position = _initialPosOfEnemy;
+                IsMovingLeft = true;
+                IsMovingRight = true;
+                direction = 0;
+                _enemyReactions.SetQuestion(false,QuestMark);
+            }
+        }
     }
 }

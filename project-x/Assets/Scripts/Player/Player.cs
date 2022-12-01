@@ -20,7 +20,7 @@ public class Player : MonoBehaviour
         get => _direction;
         set => _direction = value;
         }
-    protected bool IsVisible = true;
+    [HideInInspector] public static bool IsVisible = true;
     protected bool CanHide = false;
     protected static bool CanInteract = false;
 
@@ -48,9 +48,12 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.CompareTag("Vision"))
+        if (IsVisible)
         {
-            Visual.IsSeen = true;
+            if (col.CompareTag("Vision"))
+            {
+                Visual.IsSeen = true;
+            }   
         }
     }
     private void OnTriggerExit2D(Collider2D col)

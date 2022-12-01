@@ -14,9 +14,15 @@ public class Enemy : MonoBehaviour
     protected bool IsMovingRight =true;
     protected bool IsMovingLeft = true;
     public int direction { get; set; }
+    protected EnemyReactions _enemyReactions;
+    public GameObject QuestMark;
+    public GameObject ExclamationMark;
     private void Awake()
     {
         IsEnemyOnAlarm = false;
         Rigidbody2D = GetComponent<Rigidbody2D>();
+        _enemyReactions = new EnemyReactions();
+        QuestMark = gameObject.transform.Find("Yellow").gameObject;
+        ExclamationMark = gameObject.transform.Find("Red").gameObject;
     }
 }
