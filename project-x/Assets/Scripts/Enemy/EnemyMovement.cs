@@ -5,13 +5,12 @@ public class EnemyMovement : Enemy
 {
     private Vector2 _reachPos;
     private Vector2 _initialPosOfEnemy;
-    private bool _isGoingBack;
-    private bool _isWorkingOnAlarm;
-    private float y;
+    private bool _isGoingBack = false;
+    private bool _isWorkingOnAlarm = false;
+    private Collider2D[] _collider2Ds;
     
     private void Start()
     {
-        y = gameObject.transform.position.y;
         _initialPosOfEnemy = Rigidbody2D.gameObject.transform.position;
     }
 
@@ -19,12 +18,20 @@ public class EnemyMovement : Enemy
     {
         if (IsEnemyOnSource)
         {
+            IsVoiceNoticed = false;
             _isWorkingOnAlarm = true;
             direction = 0;
         }
+        
         else
             _isWorkingOnAlarm = false;
-        ManageMove();
+
+        if (_isGoingBack)
+        {
+            _isWorkingOnAlarm = false;
+            IsEnemyOnSource = false;
+        }
+        SetPositionOnDefault();
     }
 
     private void FixedUpdate()
@@ -82,29 +89,32 @@ public class EnemyMovement : Enemy
         Move();
     }
 
-    private void ManageMove()
+    private void SetPositionOnDefault()
     {
-        if (positionOfSound.x >= transform.position.x)
+        if (_isGoingBack)
         {
-            if (transform.position.x <= _reachPos.x && _isGoingBack)
+            if (IsMovingLeft)
             {
-                _isGoingBack = false;
-                transform.position = _initialPosOfEnemy;
-                IsMovingLeft = true;
-                IsMovingRight = true;
-                direction = 0;
-                _enemyReactions.SetQuestion(false,QuestMark);
-            }
-        }else if (positionOfSound.x <= transform.position.x)
-        {
-            if (transform.position.x >= _reachPos.x && _isGoingBack)
+                if (transform.position.x <= _reachPos.x )
+                {
+                    _isGoingBack = false;
+                    transform.position = _initialPosOfEnemy;
+                    IsMovingLeft = true;
+                    IsMovingRight = true;
+                    QuestMark.SetActive(false);
+                    direction = 0;
+                }
+            }else if (IsMovingRight)
             {
-                _isGoingBack = false;
-                transform.position = _initialPosOfEnemy;
-                IsMovingLeft = true;
-                IsMovingRight = true;
-                direction = 0;
-                _enemyReactions.SetQuestion(false,QuestMark);
+                if (transform.position.x >= _reachPos.x)
+                {
+                    _isGoingBack = false;
+                    transform.position = _initialPosOfEnemy;
+                    IsMovingLeft = true;
+                    IsMovingRight = true;
+                    QuestMark.SetActive(false);
+                    direction = 0;
+                }
             }
         }
     }

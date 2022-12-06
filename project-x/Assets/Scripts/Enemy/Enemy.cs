@@ -17,8 +17,10 @@ public class Enemy : MonoBehaviour
     protected EnemyReactions _enemyReactions;
     public GameObject QuestMark;
     public GameObject ExclamationMark;
+    protected Rigidbody2D _rigidbody2D;
     private void Awake()
     {
+        _rigidbody2D = GetComponent<Rigidbody2D>();
         IsEnemyOnSource = false;
         Rigidbody2D = GetComponent<Rigidbody2D>();
         _enemyReactions = new EnemyReactions();
