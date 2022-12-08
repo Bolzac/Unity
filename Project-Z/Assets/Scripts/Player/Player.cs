@@ -7,32 +7,43 @@ public class Player : MonoBehaviour
 {
     public PlayerState PlayerState;
     public PlayerStateMachine StateMachine;
-
-    public PlayerHideState PlayerHideState;
+    
     public PlayerIdleState PlayerIdleState;
     public PlayerMoveState PlayerMoveState;
     public PlayerFlipState PlayerFlipState;
+    public PlayerHideIdleState PlayerHideIdleState;
+    public PlayerHideWalkState PlayerHideWalkState;
+    public PlayerIsHidingState PlayerIsHidingState;
+    public PlayerIsStandingUp PlayerIsStandingUp;
 
     public Animator Animator;
     public InputHandler InputHandler;
     public PlayerData PlayerData;
     public Rigidbody2D Rigidbody2D;
+    public SpriteRenderer SpriteRenderer;
 
     private void Awake()
     {
         StateMachine = new PlayerStateMachine();
         PlayerIdleState = new PlayerIdleState(this, StateMachine, PlayerData, "idle");
         PlayerMoveState = new PlayerMoveState(this, StateMachine, PlayerData, "run");
-        PlayerHideState = new PlayerHideState(this, StateMachine, PlayerData, "hide");
         PlayerFlipState = new PlayerFlipState(this,StateMachine,PlayerData,"flip");
+        PlayerHideIdleState = new PlayerHideIdleState(this, StateMachine, PlayerData, "hideIdle");
+        PlayerHideWalkState = new PlayerHideWalkState(this, StateMachine, PlayerData, "hideWalk");
+        PlayerIsHidingState = new PlayerIsHidingState(this, StateMachine, PlayerData, "hide");
+        PlayerIsStandingUp = new PlayerIsStandingUp(this, StateMachine, PlayerData, "standUp");
     }
 
     private void Start()
     {
+        SpriteRenderer = GetComponent<SpriteRenderer>();
         InputHandler = GetComponent<InputHandler>();
         Rigidbody2D = GetComponent<Rigidbody2D>();
         Animator = GetComponent<Animator>();
         StateMachine.Initiliaze(PlayerIdleState);
+        PlayerData.isRight = true;
+        PlayerData.didHide = false;
+        PlayerData.isAnimationEnded = false;
     }
 
     private void Update()
@@ -44,13 +55,21 @@ public class Player : MonoBehaviour
     {
         StateMachine.CurrentState.PhysicsUpdate();
     }
-    
+
     public void AlertObservers(string message)
     {
         if (message.Equals("FlipAnimationEnded"))
         {
             PlayerData.isAnimationEnded = true;
             // Do other things based on an attack ending.
+        }else if (message.Equals("HideStatusTrue"))
+        {
+            PlayerData.didHide = true;
+            PlayerData.player = SpriteRenderer.sprite;
+        }else if (message.Equals("HideStatusFalse"))
+        {
+            PlayerData.didHide = false;
+            PlayerData.player = SpriteRenderer.sprite;
         }
     }
 }

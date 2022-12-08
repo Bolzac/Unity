@@ -8,4 +8,6 @@ public class PlayerData : ScriptableObject
     [Header("MoveState")] public float MoveSpeed = 5f;
     [Header("FaceDirection")] public bool isRight = true;
     [Header("FaceDirectionAnimation")] public bool isAnimationEnded = false;
+    [Header("HideState")] public bool didHide = false;
+    [Header("Sprite")] public Sprite player;
 }

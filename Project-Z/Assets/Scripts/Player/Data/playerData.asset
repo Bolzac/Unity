@@ -13,3 +13,7 @@ MonoBehaviour:
   m_Name: playerData
   m_EditorClassIdentifier: 
   MoveSpeed: 5
+  isRight: 0
+  isAnimationEnded: 0
+  didHide: 1
+  player: {fileID: -4005074021245359879, guid: d4df47bd15ab2e544a5ec4dde9e22a90, type: 3}

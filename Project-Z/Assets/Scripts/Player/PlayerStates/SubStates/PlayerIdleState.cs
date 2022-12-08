@@ -7,7 +7,6 @@ public class PlayerIdleState : GroundedState
     public PlayerIdleState(Player player, PlayerStateMachine stateMachine, PlayerData playerData, string _animBoolName) : base(player, stateMachine, playerData, _animBoolName)
     {
     }
-
     public override void Enter()
     {
         base.Enter();
@@ -21,10 +20,15 @@ public class PlayerIdleState : GroundedState
 
     public override void LogicUpdate()
     {
-        base.LogicUpdate(); 
+        base.LogicUpdate();
         if (_horizontalInput != 0)
         {
             Player.StateMachine.ChangeState(Player.PlayerMoveState);
+        }
+
+        if (Hide == KeyCode.F && !Player.PlayerData.didHide)
+        {
+            Player.StateMachine.ChangeState(Player.PlayerIsHidingState);
         }
     }
 }

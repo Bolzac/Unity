@@ -6,23 +6,30 @@ using UnityEngine;
 public class InputHandler : MonoBehaviour
 {
     public KeyCode InteractInput;
-    public float HorizontalInput;
-
-    private void Update()
-    {
-        GetHorizontalInput();
-    }
-
-    private void GetInteractInput()
+    public KeyCode HideInput;
+    
+    public KeyCode GetInteractInput()
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
             InteractInput = KeyCode.E;
         }
+
+        return InteractInput;
     }
 
-    private void GetHorizontalInput()
+    public float GetHorizontalInput()
     {
-        HorizontalInput = Input.GetAxisRaw("Horizontal");
+        return Input.GetAxisRaw("Horizontal");
+    }
+    
+    public KeyCode GetHideInput()
+    {
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            HideInput = KeyCode.F;
+        }
+
+        return HideInput;
     }
 }

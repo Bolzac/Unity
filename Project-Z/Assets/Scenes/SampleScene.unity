@@ -456,7 +456,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   InteractInput: 0
-  HorizontalInput: 0
+  HideInput: 0
 --- !u!114 &1620994433
 MonoBehaviour:
   m_ObjectHideFlags: 0

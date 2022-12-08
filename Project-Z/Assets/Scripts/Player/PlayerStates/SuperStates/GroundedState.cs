@@ -5,6 +5,7 @@ using UnityEngine;
 public class GroundedState : PlayerState
 {
     protected float _horizontalInput;
+    protected KeyCode Hide;
     public GroundedState(Player player, PlayerStateMachine stateMachine, PlayerData playerData, string _animBoolName) : base(player, stateMachine, playerData, _animBoolName)
     {
     }
@@ -22,8 +23,8 @@ public class GroundedState : PlayerState
     public override void LogicUpdate()
     {
         base.LogicUpdate();
-        _horizontalInput = Player.InputHandler.HorizontalInput;
-        Debug.Log(Player.PlayerData.isRight);
+        _horizontalInput = Player.InputHandler.GetHorizontalInput();
+        Hide = Player.InputHandler.GetHideInput();
     }
 
     public override void PhysicsUpdate()
