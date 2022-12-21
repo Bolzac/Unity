@@ -22,6 +22,8 @@ public class Player : MonoBehaviour
     public Rigidbody2D Rigidbody2D;
     public SpriteRenderer SpriteRenderer;
 
+    private RaycastHit2D[] raycastHit2Ds;
+
     private void Awake()
     {
         StateMachine = new PlayerStateMachine();
@@ -40,10 +42,11 @@ public class Player : MonoBehaviour
         InputHandler = GetComponent<InputHandler>();
         Rigidbody2D = GetComponent<Rigidbody2D>();
         Animator = GetComponent<Animator>();
-        StateMachine.Initiliaze(PlayerIdleState);
         PlayerData.isRight = true;
         PlayerData.didHide = false;
         PlayerData.isAnimationEnded = false;
+        raycastHit2Ds = new RaycastHit2D[5];
+        StateMachine.Initiliaze(PlayerIdleState);
     }
 
     private void Update()
@@ -70,6 +73,18 @@ public class Player : MonoBehaviour
         {
             PlayerData.didHide = false;
             PlayerData.player = SpriteRenderer.sprite;
+        }else if (message.Equals("CreateStepSound"))
+        {
+            var count = Physics2D.RaycastNonAlloc(transform.Find("A").position, transform.Find("B").position,
+                raycastHit2Ds);
+            Debug.DrawRay(transform.Find("A").position,transform.Find("B").position,Color.white);
+            for (var i = 0; i < count; i++)
+            {
+                if (raycastHit2Ds[i].collider.CompareTag("Enemy"))
+                {
+                    Debug.Log("Düşman tespiti");
+                }
+            }
         }
     }
 }
