@@ -17,9 +17,9 @@ This theorem says that if we let a monkey type on keyboard, it has a chance to w
 
 1. Create a population of N randomly generated elements with a virtual DNA. (Variety Step)
 2. Choose the members who are going to pass their genes to next generation. (Selection Step)
-  1. Evaluate Fitness
+  - Evaluate Fitness
     - This is where you determine the fitness of members compare to target.
     - For example, if we try to write the word of "cat" and if the population's members are "hut", "car", and "box" they have a value of fitness. In order their fitness values are "1/3", "2/3" and "0".
-  2. Create a Mating Pool
+  - Create a Mating Pool
     - In this step we are going to create a collection with type List<type>. In this list there is going to be our members to pass their genes to next generation. We are going to use "Probabilistic Method". In this method, our list size going to be total fitness of all members (we are going to product fitness values with 100 to get integer values from percentages). Then put the member fitness of members x 100 times in list. After that, we are going to select randomly from list.
 3. Reproduction
