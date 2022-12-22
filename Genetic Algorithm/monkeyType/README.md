@@ -21,7 +21,7 @@ This theorem says that if we let a monkey type on keyboard, it has a chance to w
     - This is where you determine the fitness of members compare to target.
     - For example, if we try to write the word of "cat" and if the population's members are "hut", "car", and "box" they have a value of fitness.
 | DNA | Fitness Value |
-|-----|---------------|
+|----:|---------------|
 |hut|1/3|
 |car|2/3|
 |box|0|
