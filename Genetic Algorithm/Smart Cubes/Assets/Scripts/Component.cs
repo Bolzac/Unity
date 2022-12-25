@@ -84,6 +84,7 @@ public class Component : MonoBehaviour
             population[i].StartWithDna(_children[i]);
             population[i].gameObject.SetActive(true);
         }
+        matePool.Clear();
     }
 
     public void Selection()
@@ -94,12 +95,10 @@ public class Component : MonoBehaviour
         {
             item.CalculateFitness(target,(float)_distanceToTarget);
             var count = item.Fitness * 100;
-            Debug.Log(count);
             for (int i = 0; i < count; i++)
             {
                 matePool.Add(item);
             }
-            Debug.Log(matePool.Count);
         }
     }
 
