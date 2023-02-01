@@ -1,4 +1,5 @@
 using TMPro;
+using UnityEngine.Events;
 using UnityEngine.Serialization;
 
 public class PlayerModel : VitalModel

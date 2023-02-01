@@ -1,5 +1,5 @@
 using UnityEngine;
-public class CoinController : VitalController
+public class CoinController : FightController
 {
     private CoinModel _coinModel;
     private void Start()

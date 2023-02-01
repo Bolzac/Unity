@@ -30,6 +30,7 @@ public class CardController : MonoBehaviour
                 player
             ))
         {
+            Debug.Log($"{card.clickedObject.baseModel.x},{card.clickedObject.baseModel.y}");
             ClickableCard.canClick = true;
             return;
         }
@@ -105,9 +106,9 @@ public class CardController : MonoBehaviour
         var nextPositionOfPlayer = StaticMethods.Instance.GetWorldPosition(nextGridOfPlayer.x, nextGridOfPlayer.y);
         var nextPositionOfFollower = StaticMethods.Instance.GetWorldPosition(nextGridOfFollower.x,nextGridOfFollower.y);
         card.clickedObject.gameObject.SetActive(false);
-        await Movement.Move(nextPositionOfPlayer,card.player.gameObject);
+        await Movement.Move(nextPositionOfPlayer,card.player.gameObject, card.player.baseModel.dataObject.speed);
         if(!card.followerCard) Debug.Log("Yok");
-        await Movement.Move(nextPositionOfFollower, card.followerCard.gameObject);
+        await Movement.Move(nextPositionOfFollower, card.followerCard.gameObject, card.followerCard.baseModel.dataObject.speed);
         player.playerController.SetPosition(nextGridOfPlayer.x,nextGridOfPlayer.y);
         var grids = new[]
         {

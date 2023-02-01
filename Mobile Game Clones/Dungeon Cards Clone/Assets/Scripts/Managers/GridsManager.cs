@@ -9,4 +9,5 @@ public class GridsManager : MonoBehaviour
     {
         gridController.InitTiles();
     }
+
 }

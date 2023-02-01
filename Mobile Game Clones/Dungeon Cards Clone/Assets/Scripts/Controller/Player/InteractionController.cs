@@ -32,6 +32,11 @@ public class InteractionController : MonoBehaviour
             {
                 return playerController.OpenChest(clicked as Chest);
             }
+            case "Empty":
+            {
+                Debug.Log("Empty");
+                return true;
+            }
             default: return false;
         }
     }

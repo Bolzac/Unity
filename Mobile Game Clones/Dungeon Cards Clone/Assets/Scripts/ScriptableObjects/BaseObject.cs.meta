@@ -3,7 +3,9 @@ guid: c778066763698f9469dc13af407413bb
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - sprite: {instanceID: 0}
+  - emptyCard: {fileID: 623044930624933524, guid: 35f2396b89e99ee4fbb3cb5ff76b6081, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

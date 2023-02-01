@@ -1,3 +1,4 @@
+using Unity.Mathematics;
 using UnityEngine;
 
 public class PlayerController : DamageController
@@ -10,7 +11,7 @@ public class PlayerController : DamageController
         _playerModel = baseModel as PlayerModel;
         InitializeCard();
     }
-    
+
     private void GetHeal(int healAmount)
     {
         _playerModel.currentHealth = _playerModel.currentHealth + healAmount > _playerModel.playerData.health ? _playerModel.playerData.health : _playerModel.currentHealth + healAmount;
@@ -59,9 +60,53 @@ public class PlayerController : DamageController
         {
             damageAmount = _playerModel.weapon.weaponModel.currentHealth;
             _playerModel.weapon.weaponController.TakeDamage(damageAmount);
+            if ((_playerModel.weapon.weaponModel.weaponData.element == WeaponElements.Fire &&
+                 enemy.enemyModel.enemyData.element == EnemyElements.Fire) ||
+                (_playerModel.weapon.weaponModel.weaponData.element == WeaponElements.Ice &&
+                 enemy.enemyModel.enemyData.element == EnemyElements.Fire))
+            {
+                damageAmount *= 2;
+            }
             if (_playerModel.weapon.weaponModel.currentHealth == 0) _playerModel.isWeaponEquipped = false;
             if (damageAmount >= enemy.enemyModel.currentHealth) enemy.enemyModel.killedByWeapon = true;
             enemy.enemyController.TakeDamage(damageAmount);
+            if (_playerModel.weapon.weaponModel.weaponData.type == WeaponTypes.Line)
+            {
+                FightController adam = null;
+                if (_playerModel.moveDirection == Direction.Right && _playerModel.x == 0 && !Card.cardArray[2,_playerModel.y].CompareTag("Chest"))
+                {
+                    adam = (Card.cardArray[2,_playerModel.y].baseController) as FightController;
+                    adam.baseModel.dataObject.emptyCard.baseModel.x = 2;
+                    adam.baseModel.dataObject.emptyCard.baseModel.y = _playerModel.y;
+                }
+                else if (_playerModel.moveDirection == Direction.Left && _playerModel.x == 2 && !Card.cardArray[0,_playerModel.y].CompareTag("Chest"))
+                {
+                    adam = (Card.cardArray[0,_playerModel.y].baseController) as FightController;
+                    adam.baseModel.dataObject.emptyCard.baseModel.x = 0;
+                    adam.baseModel.dataObject.emptyCard.baseModel.y = _playerModel.y;
+                }
+                else if (_playerModel.moveDirection == Direction.Up && _playerModel.y == 0 && !Card.cardArray[_playerModel.x,2].CompareTag("Chest"))
+                {
+                    adam = (Card.cardArray[_playerModel.x,2].baseController) as FightController;
+                    adam.baseModel.dataObject.emptyCard.baseModel.y = 2;
+                    adam.baseModel.dataObject.emptyCard.baseModel.x = _playerModel.x;
+                }
+                else if (_playerModel.moveDirection == Direction.Down && _playerModel.y == 2 &&
+                         !Card.cardArray[_playerModel.x, 0].CompareTag("Chest"))
+                {
+                    adam = (Card.cardArray[_playerModel.x,0].baseController) as FightController;
+                    adam.baseModel.dataObject.emptyCard.baseModel.y = 0;
+                    adam.baseModel.dataObject.emptyCard.baseModel.x = _playerModel.x;
+                }
+
+                if (adam && adam.TakeDamage(damageAmount) && !adam.CompareTag("Enemy"))
+                {
+                    Instantiate(adam.baseModel.dataObject.emptyCard,
+                        StaticMethods.Instance.GetWorldPosition(adam.baseModel.x, adam.baseModel.y),
+                        quaternion.identity);
+                    adam.SetPosition(adam.baseModel.dataObject.emptyCard.baseModel.x,adam.baseModel.dataObject.emptyCard.baseModel.y);
+                }
+            }
             return false;
         }
     }

@@ -15,3 +15,5 @@ MonoBehaviour:
   name: Coin
   isGood: 1
   sprite: {fileID: 0}
+  emptyCard: {fileID: 623044930624933524, guid: 35f2396b89e99ee4fbb3cb5ff76b6081, type: 3}
+  speed: 3

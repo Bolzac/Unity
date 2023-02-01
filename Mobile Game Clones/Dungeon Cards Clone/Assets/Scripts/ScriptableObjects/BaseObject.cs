@@ -8,4 +8,8 @@ public class BaseObject : ScriptableObject
     public bool isGood;
     
     public Sprite sprite;
+
+    public Base emptyCard;
+
+    public float speed = 3;
 }

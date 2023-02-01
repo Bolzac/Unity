@@ -1,6 +1,7 @@
 using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class GameManager : MonoBehaviour
     public int score;
 
     [SerializeField] private TextMeshProUGUI scoreText;
+
+    public GameObject gameOverScreen;
 
     private void Awake()
     {
@@ -25,11 +28,4 @@ public class GameManager : MonoBehaviour
         scoreText.text = $"Gold: {round.ToString()}";
         OnRoundChange();
     }
-}
-
-public enum GameState
-{
-    GenerateGrid,
-    Await,
-    Action
 }

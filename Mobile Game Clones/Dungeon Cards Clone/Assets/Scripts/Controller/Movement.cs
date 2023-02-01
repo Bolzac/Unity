@@ -23,12 +23,11 @@ public class Movement : MonoBehaviour
         return false;
     }
 
-    public static async Task Move(Vector3 nextPoint, GameObject gameObject)
+    public static async Task Move(Vector3 nextPoint, GameObject gameObject, float speed)
     {
         while (nextPoint != gameObject.transform.position)
         {
-            gameObject.transform.position = Vector2.MoveTowards(gameObject.transform.position, nextPoint, 3.8f * Time.deltaTime);
-
+            gameObject.transform.position = Vector2.MoveTowards(gameObject.transform.position, nextPoint,speed  * Time.deltaTime);
             await Task.Yield();
         }
     }

@@ -1,5 +1,5 @@
 using Random = UnityEngine.Random;
-public class PotionController : VitalController
+public class PotionController : FightController
 {
     private PotionModel _potionModel;
 

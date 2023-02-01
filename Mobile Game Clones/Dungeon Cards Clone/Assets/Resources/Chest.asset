@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c778066763698f9469dc13af407413bb, type: 3}
   m_Name: Chest
   m_EditorClassIdentifier: 
-  name: 
+  name: Bad Chest
   isGood: 0
   sprite: {fileID: 0}
+  emptyCard: {fileID: 0}
+  speed: 3
