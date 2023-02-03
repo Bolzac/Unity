@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Managers;
 using Unity.Mathematics;
 using UnityEngine;
 
@@ -21,6 +22,7 @@ public class PlayerController : MonoBehaviour
 
     public void Jump(Vector2 force)
     {
+        PlayerStateManager.PlayerManager.ChangeState(PlayerState.Air);
         playerModel.isForceApplied = true;
         playerModel.rigidbody2D.gravityScale = 1;
         playerModel.screenModel.isMouseHeldDown = false;
@@ -31,7 +33,12 @@ public class PlayerController : MonoBehaviour
     public void SetOnGround()
     {
         playerModel.isOnGround = true;
+        playerModel.isOnWall = false;
+        playerModel.isOnWallFromRight = false;
+        playerModel.isOnWallFromLeft = false;
+        playerModel.isSlidingOnWall = false;
         if(!playerModel.isForceApplied) playerModel.rigidbody2D.velocity = Vector2.zero;
+        PlayerStateManager.PlayerManager.ChangeState(PlayerState.Ground);
     }
 
     public void SetOnWall()
@@ -39,16 +46,30 @@ public class PlayerController : MonoBehaviour
         if (!playerModel.isOnWall)
         {
             playerModel.isOnWall = true;
+            playerModel.isOnGround = false;
         }
         if (!playerModel.isForceApplied && !playerModel.isSlidingOnWall)
         {
             playerModel.rigidbody2D.velocity = Vector2.zero;
             playerModel.rigidbody2D.gravityScale = 0;
         }
+        PlayerStateManager.PlayerManager.ChangeState(PlayerState.Wall);
+    }
+
+    public void SetJump()
+    {
+        playerModel.isInAir = true;
+        if (playerModel.isSlidingOnWall)
+        {
+            playerModel.isSlidingOnWall = false;
+            playerModel.onWallTime = 0;
+        }
+        playerModel.rigidbody2D.gravityScale = 1;
     }
 
     private IEnumerator SlideOnWall()
     {
+        PlayerStateManager.PlayerManager.ChangeState(PlayerState.Slide);
         for (int i = 0; i < 15; i++)
         {
             playerModel.rigidbody2D.gravityScale += 0.02f;

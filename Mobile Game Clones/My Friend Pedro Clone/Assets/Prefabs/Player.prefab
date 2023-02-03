@@ -1,5 +1,95 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &47432652
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 47432653}
+  m_Layer: 6
+  m_Name: RightSide
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &47432653
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 47432652}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.4, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1962815082275630879}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &314718032
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 314718033}
+  m_Layer: 6
+  m_Name: LeftSide
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &314718033
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 314718032}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.4, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1962815082275630879}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &430671865
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 430671866}
+  m_Layer: 6
+  m_Name: Ground
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &430671866
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 430671865}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1962815082275630879}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1992352262
 GameObject:
   m_ObjectHideFlags: 0
@@ -142,8 +232,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jumpSound: {fileID: 8300000, guid: 59ebff4d765f829478655443a9fdc52d, type: 3}
   shootSound: {fileID: 8300000, guid: a1d3983f8c334d44a95fd272eb700865, type: 3}
-  onWallSound: {fileID: 0}
-  onGroundSound: {fileID: 0}
+  onWallSound: {fileID: 8300000, guid: f0a45568945033e4bbf731f810c59281, type: 3}
+  onGroundSound: {fileID: 8300000, guid: 245001cffbece2947a281cfbea3f3e6e, type: 3}
   audioSource: {fileID: 1992352264}
 --- !u!1 &1962815082275630873
 GameObject:
@@ -160,6 +250,7 @@ GameObject:
   - component: {fileID: 1962815082275630850}
   - component: {fileID: 1962815082275630851}
   - component: {fileID: 1962815082275630848}
+  - component: {fileID: 1962815082002687892}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -179,6 +270,9 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1992352265}
+  - {fileID: 430671866}
+  - {fileID: 314718033}
+  - {fileID: 47432653}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -222,8 +316,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
-  m_Color: {r: 0.7264151, g: 0.030838363, b: 0.030838363, a: 1}
+  m_Sprite: {fileID: -2088611571101158987, guid: 09127efeaf3b25d4d93a99bb675dbe00, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -250,14 +344,14 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 3, y: 3}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.8, y: 2}
   m_EdgeRadius: 0
 --- !u!50 &1962815082275630876
 Rigidbody2D:
@@ -292,6 +386,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a811a76f7e291054f92d915490ee4ba5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: 3
   rigidbody2D: {fileID: 1962815082275630876}
   currentPosition: {x: 0, y: 0}
   screenModel: {fileID: 0}
@@ -300,7 +395,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: EnemyController, Assembly-CSharp
-        m_MethodName: KilledByGun
+        m_MethodName: GetDamage
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -312,12 +407,21 @@ MonoBehaviour:
         m_CallState: 2
   isOnGround: 0
   isOnWall: 0
+  isOnWallFromLeft: 0
+  isOnWallFromRight: 0
   isJumping: 0
   isForceApplied: 0
   isSlidingOnWall: 0
+  isAscending: 0
+  isDescending: 0
   onWallTime: 0
   maxStayFixedTimeOnWall: 5
   lineCastCount: 0
+  ground: {fileID: 430671866}
+  groundDetectLenght: {x: 0, y: -0.02, z: 0}
+  leftSide: {fileID: 314718033}
+  rightSide: {fileID: 47432653}
+  sideDetectLenght: {x: 0.03, y: 0, z: 0}
 --- !u!114 &1962815082275630851
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -373,4 +477,38 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  onJump:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1962815082275630851}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: SetJump
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   playerModel: {fileID: 1962815082275630850}
+--- !u!95 &1962815082002687892
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1962815082275630873}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 23af1e48d8b1d3341882890a2717cd21, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

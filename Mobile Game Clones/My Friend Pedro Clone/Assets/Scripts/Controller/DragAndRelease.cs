@@ -8,7 +8,7 @@ public class DragAndRelease : MonoBehaviour
 
     public void CalculatePowerBar()
     {
-        if (screenModel.playerModel.isJumping) return;
+        if (screenModel.playerModel.isInAir) return;
         
         screenModel.trajectoryLine.enabled = true;
         screenModel.dragLine.SetPosition(0, screenModel.clickPosition);
@@ -16,7 +16,7 @@ public class DragAndRelease : MonoBehaviour
 
     public void CalculateForce()
     {
-        if (screenModel.playerModel.isJumping) return;
+        if (screenModel.playerModel.isInAir) return;
         
         screenModel.releasePosition = screenModel.camera.ScreenToWorldPoint(Input.mousePosition);
         if ((screenModel.clickPosition - screenModel.releasePosition).magnitude * screenModel.power > screenModel.minPower &&

@@ -12,7 +12,7 @@ public class TrajectoryPath : MonoBehaviour
 
     public void CreateTrajectoryLine()
     {
-        if (screenModel.playerModel.isJumping) return;
+        if (screenModel.playerModel.isInAir) return;
         
         screenModel.time = (screenModel.force.y / screenModel.mass / Physics2D.gravity.magnitude) * 2;
         screenModel.timeText.text = screenModel.time.ToString(CultureInfo.CurrentCulture);

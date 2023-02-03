@@ -24,7 +24,8 @@ public class EnemyModel : MonoBehaviour
     public Transform eye;
     
     public RaycastHit2D[] Results;
-
+    
+    #endregion
     #region Events
 
     public UnityEvent<bool> onCatch;
@@ -35,6 +36,4 @@ public class EnemyModel : MonoBehaviour
     {
         currentPosition = transform.position;
     }
-
-    #endregion
 }
